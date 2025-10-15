@@ -44,7 +44,7 @@ export function Step1({ increaseStep, error, setError, name, setName }) {
                   value={name.firstName}
                   onChange={(e) => handleError("firstName", e.target.value)}
                   className={`input ${
-                    error.firstName ? "border-red-500" : "borderGray"
+                    error.firstName ? "borderRed" : "borderGray"
                   }`}
                 />
                 {error.firstName && (

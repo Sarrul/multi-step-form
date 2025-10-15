@@ -38,3 +38,6 @@
 .borderGray {
   @apply border border-[#CBD5E1];
 }
+.borderRed {
+  @apply border border-[#E14942];
+}
