@@ -1,5 +1,5 @@
 import { useEffect, version } from "react";
-import { PineconeLogo } from "../icons/pineconeLogo";
+import { PineconeLogo } from "../icons/PineconeLogo";
 export function Step2({
   increaseStep,
   decreaseStep,

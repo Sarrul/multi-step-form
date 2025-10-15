@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { ImageUpload } from "../icons/ImageUpload";
-import { PineconeLogo } from "../icons/pineconeLogo";
+import { PineconeLogo } from "../icons/PineconeLogo";
 import { ImageDelete } from "../icons/ImageDelete";
 export function Step3({ decreaseStep, increaseStep }) {
   const [preview, setPreview] = useState(null);

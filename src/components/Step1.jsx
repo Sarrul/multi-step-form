@@ -1,4 +1,4 @@
-import { PineconeLogo } from "../icons/pineconeLogo";
+import { PineconeLogo } from "../icons/PineconeLogo";
 
 export function Step1({ increaseStep, error, setError, name, setName }) {
   const nameRegex = /^[a-zA-Z]+$/;

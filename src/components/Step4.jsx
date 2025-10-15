@@ -1,4 +1,4 @@
-import { PineconeLogo } from "../icons/pineconeLogo";
+import { PineconeLogo } from "../icons/PineconeLogo";
 export function Step4() {
   return (
     <div>
