@@ -63,7 +63,7 @@ export function Step1({ increaseStep, error, setError, name, setName }) {
                   value={name.lastName}
                   onChange={(e) => handleError("lastName", e.target.value)}
                   className={`input ${
-                    error.lastName ? "border-red-500" : "borderGray"
+                    error.lastName ? "borderRed" : "borderGray"
                   }`}
                 />
                 {error.lastName && (
@@ -82,7 +82,7 @@ export function Step1({ increaseStep, error, setError, name, setName }) {
                   value={name.userName}
                   onChange={(e) => handleError("userName", e.target.value)}
                   className={`input ${
-                    error.userName ? "border-red-500" : "borderGray"
+                    error.userName ? "borderRed" : "borderGray"
                   }`}
                 />
                 {error.userName && (

@@ -87,9 +87,7 @@ export function Step2({
                 </div>
                 <input
                   type="text"
-                  className={`input ${
-                    emailError ? "border-red-500" : "borderGray"
-                  }`}
+                  className={`input ${emailError ? "borderRed" : "borderGray"}`}
                   placeholder="Placeholder"
                   value={email}
                   onChange={(e) => {
@@ -110,9 +108,7 @@ export function Step2({
                 </div>
                 <input
                   type="text"
-                  className={`input ${
-                    phoneError ? "border-red-500" : "borderGray"
-                  }`}
+                  className={`input ${phoneError ? "borderRed" : "borderGray"}`}
                   placeholder="Placeholder"
                   value={phone}
                   onChange={(e) => {
@@ -133,9 +129,7 @@ export function Step2({
                 </div>
                 <input
                   type="password"
-                  className={`input ${
-                    passError ? "border-red-500" : "borderGray"
-                  }`}
+                  className={`input ${passError ? "borderRed" : "borderGray"}`}
                   placeholder="Placeholder"
                   value={password}
                   onChange={(e) => {
@@ -155,7 +149,7 @@ export function Step2({
                 <input
                   type="password"
                   className={`input ${
-                    conPassError ? "border-red-500" : "borderGray"
+                    conPassError ? "borderRed" : "borderGray"
                   }`}
                   placeholder="Placeholder"
                   value={conPass}
