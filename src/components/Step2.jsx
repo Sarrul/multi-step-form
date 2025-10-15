@@ -1,5 +1,7 @@
 import { useEffect, version } from "react";
 import { PineconeLogo } from "../icons/PineconeLogo";
+import { ChevronRight } from "../icons/ChevronRight";
+import { ChevronLeft } from "../icons/ChevronLeft";
 export function Step2({
   increaseStep,
   decreaseStep,
@@ -20,13 +22,13 @@ export function Step2({
   conPassError,
   setConPassError,
 }) {
-  const emailRegex = /^[a-zA-Z0-9]([a-zA-Z0-9._-]*[a-zA-Z0-9])?@gmail\.com$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const phoneRegex = /^[0-9]+$/;
   const passRegex = /^(?=.*[A-Za-z])(?=.*\d).*$/;
 
   const handleEmail = (value) => {
     if (!emailRegex.test(value)) {
-      setEmailError("Invalid Gmail address. Must be like example@gmail.com");
+      setEmailError("Invalid Gmail address.");
     } else {
       setEmailError("");
     }
@@ -168,11 +170,13 @@ export function Step2({
 
           <div className="flex flex-row  mt-auto gap-2">
             <button onClick={decreaseStep} className="backBtn ">
+              <ChevronLeft />
               back
             </button>
 
             <button onClick={increaseStep} className="continueBtn w-70">
               Continue 2/3
+              <ChevronRight />
             </button>
           </div>
         </div>

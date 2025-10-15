@@ -1,4 +1,6 @@
 import { PineconeLogo } from "../icons/PineconeLogo";
+import { ChevronRight } from "../icons/ChevronRight";
+import { ImageDelete } from "../icons/ImageDelete";
 
 export function Step1({ increaseStep, error, setError, name, setName }) {
   const nameRegex = /^[a-zA-Z]+$/;
@@ -93,6 +95,7 @@ export function Step1({ increaseStep, error, setError, name, setName }) {
           </div>
           <button onClick={increaseStep} className="continueBtn  w-[416px] ">
             Continue 1/3
+            <ChevronRight />
           </button>
         </div>
       </div>

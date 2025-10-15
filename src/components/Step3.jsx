@@ -2,8 +2,20 @@ import { useRef, useState } from "react";
 import { ImageUpload } from "../icons/ImageUpload";
 import { PineconeLogo } from "../icons/PineconeLogo";
 import { ImageDelete } from "../icons/ImageDelete";
-export function Step3({ decreaseStep, increaseStep }) {
-  const [preview, setPreview] = useState(null);
+import { ChevronRight } from "../icons/ChevronRight";
+import { ChevronLeft } from "../icons/ChevronLeft";
+export function Step3({
+  decreaseStep,
+  increaseStep,
+  dob,
+  setDob,
+  dobError,
+  setDobError,
+  imageError,
+  setImageError,
+  preview,
+  setPreview,
+}) {
   const inputFileRef = useRef(null);
 
   const handleFileChange = (e) => {
@@ -11,6 +23,7 @@ export function Step3({ decreaseStep, increaseStep }) {
 
     if (file) {
       setPreview(URL.createObjectURL(file));
+      setImageError("");
     }
   };
   const handleDeleteBtn = (e) => {
@@ -39,7 +52,16 @@ export function Step3({ decreaseStep, increaseStep }) {
                 <p className="inputTitle">Date of birth</p>
                 <p className="star">*</p>
               </div>
-              <input type="date" className="input" />
+              <input
+                type="date"
+                className={`input ${dobError ? "borderRed" : "borderGray"}`}
+                value={dob}
+                onChange={(e) => {
+                  setDob(e.target.value);
+                  if (e.target.value) setDobError("");
+                }}
+              />
+              {dobError && <div className="error-message">{dobError}</div>}
             </div>
             {/* profile image */}
             <div className="inputBigDiv">
@@ -73,25 +95,29 @@ export function Step3({ decreaseStep, increaseStep }) {
                     </>
                   )}
                 </label>
+
                 {preview && (
                   <button
-                    className="absolute top-1 right-1 rounded-[99px] w-3 h-3 bg-[#202124] z-10"
+                    className="absolute top-1 right-2 rounded-[99px] w-5 h-5 bg-[#202124] z-10 flex items-center justify-center"
                     onClick={handleDeleteBtn}
                   >
                     <ImageDelete />
                   </button>
                 )}
               </div>
+              {imageError && <div className="error-message">{imageError}</div>}
             </div>
           </div>
           {/* buttons */}
           <div className="flex flex-row  mt-auto gap-2">
             <button onClick={decreaseStep} className="backBtn">
+              <ChevronLeft />
               back
             </button>
 
             <button onClick={increaseStep} className="continueBtn w-70">
               Submit 3/3
+              <ChevronRight />
             </button>
           </div>
         </div>

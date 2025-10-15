@@ -33,6 +33,12 @@ export function App() {
   const [conPass, setConPass] = useState("");
   const [conPassError, setConPassError] = useState("");
 
+  // step 3
+  const [preview, setPreview] = useState(null);
+  const [dob, setDob] = useState("");
+  const [dobError, setDobError] = useState("");
+  const [imageError, setImageError] = useState("");
+
   // app.jsx
   const [step, setStep] = useState(1);
   const isEmpty = Object.values(name).some((val) => val.trim() === "");
@@ -77,6 +83,21 @@ export function App() {
         return;
       }
     }
+    if (step === 3) {
+      let hasError = false;
+
+      if (!dob) {
+        setDobError("Date of birth is required");
+        hasError = true;
+      }
+
+      if (!preview) {
+        setImageError("Profile image is required");
+        hasError = true;
+      }
+
+      if (hasError) return;
+    }
     setStep(step + 1);
   }
   function decreaseStep() {
@@ -116,7 +137,18 @@ export function App() {
         />
       )}
       {step === 3 && (
-        <Step3 decreaseStep={decreaseStep} increaseStep={increaseStep} />
+        <Step3
+          decreaseStep={decreaseStep}
+          increaseStep={increaseStep}
+          dob={dob}
+          setDob={setDob}
+          dobError={dobError}
+          setDobError={setDobError}
+          imageError={imageError}
+          setImageError={setImageError}
+          preview={preview}
+          setPreview={setPreview}
+        />
       )}
       {step === 4 && <Step4 />}
     </div>
