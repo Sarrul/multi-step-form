@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ImageUpload } from "../icons/ImageUpload";
 import { PineconeLogo } from "../icons/pineconeLogo";
+import { ImageDelete } from "../icons/ImageDelete";
 export function Step3({ decreaseStep, increaseStep }) {
   const [preview, setPreview] = useState(null);
+  const inputFileRef = useRef(null);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+
     if (file) {
       setPreview(URL.createObjectURL(file));
     }
+  };
+  const handleDeleteBtn = (e) => {
+    setPreview(null);
+    if (inputFileRef.current) inputFileRef.current.value = "";
   };
 
   return (
@@ -40,28 +47,41 @@ export function Step3({ decreaseStep, increaseStep }) {
                 <p className="inputTitle">Profile image</p>
                 <p className="star">*</p>
               </div>
-              <input
-                type="file"
-                className="hidden"
-                id="fileInput"
-                onChange={handleFileChange}
-              />
-              <label htmlFor="fileInput" className="imageInput">
-                {preview ? (
-                  <img
-                    src={preview}
-                    alt="preview"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <>
-                    <div className="flex flex-col justify-center items-center">
-                      <ImageUpload />
-                      <span>Add Image</span>
+              <div className="relative">
+                <input
+                  type="file"
+                  className="hidden"
+                  ref={inputFileRef}
+                  id="fileInput"
+                  onChange={handleFileChange}
+                />
+                <label htmlFor="fileInput" className="imageInput">
+                  {preview ? (
+                    <div className="relative">
+                      <img
+                        src={preview}
+                        alt="preview"
+                        className="w-full h-full object-cover rounded-md"
+                      />
                     </div>
-                  </>
+                  ) : (
+                    <>
+                      <div className="flex flex-col justify-center items-center">
+                        <ImageUpload />
+                        <span>Add Image</span>
+                      </div>
+                    </>
+                  )}
+                </label>
+                {preview && (
+                  <button
+                    className="absolute top-1 right-1 rounded-[99px] w-3 h-3 bg-[#202124] z-10"
+                    onClick={handleDeleteBtn}
+                  >
+                    <ImageDelete />
+                  </button>
                 )}
-              </label>
+              </div>
             </div>
           </div>
           {/* buttons */}

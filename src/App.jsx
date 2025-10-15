@@ -33,8 +33,6 @@ export function App() {
   const [conPass, setConPass] = useState("");
   const [conPassError, setConPassError] = useState("");
 
-  // const [step2Error, setStep2Error] = useState(true);
-
   // app.jsx
   const [step, setStep] = useState(1);
   const isEmpty = Object.values(name).some((val) => val.trim() === "");
@@ -115,8 +113,6 @@ export function App() {
           setConPass={setConPass}
           conPassError={conPassError}
           setConPassError={setConPassError}
-          // step2Error={step2Error}
-          // setStep2Error={setStep2Error}
         />
       )}
       {step === 3 && (

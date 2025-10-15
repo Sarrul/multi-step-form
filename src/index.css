@@ -21,7 +21,7 @@
   @apply text-[#e14942] text-sm/4 font-semibold tracking-[-0.14px] font-[Inter];
 }
 .input {
-  @apply flex items-center self-stretch p-3 rounded-lg border focus:border-[#0CA5E9] focus:border outline-none w-104;
+  @apply flex items-center self-stretch p-3 rounded-lg border focus:border-[#0CA5E9] focus:border outline-none w-104 border-[#CBD5E1];
 }
 .continueBtn {
   @apply flex justify-center items-center gap-1 py-[10px] px-3 rounded-md bg-[#121316] text-white mt-[30px];
@@ -30,7 +30,7 @@
   @apply flex justify-center items-center w-32 h-11 px-2.5 py-3 gap-1 rounded-md border border-[#CBD5E1] bg-white mt-auto;
 }
 .imageInput {
-  @apply flex flex-col justify-center items-center w-104 h-45 min-h-20 p-4 gap-2 rounded-md bg-[rgba(127_127_128_/0.05)] border-none;
+  @apply flex flex-col justify-center items-center w-104 h-45 min-h-20 p-4 gap-2 rounded-md bg-[rgba(127_127_128_/0.05)] border-none overflow-hidden;
 }
 .error-message {
   @apply text-[#E14942] text-sm font-normal;
