@@ -1,3 +1,4 @@
+import { PineconeLogo } from "../icons/pineconeLogo";
 export function Step4() {
   return (
     <div>
@@ -6,7 +7,7 @@ export function Step4() {
         <div className="flex flex-col items-start w-120 rounded-lg bg-white p-8 ">
           {/* header */}
           <div className="flex flex-col w-104 items-start gap-2">
-            <div className="bg-[url(./assets/pinecone.png)] w-15 h-15"></div>
+            <PineconeLogo />
             <div className="joinUs">You're All Set 🔥</div>
             <div className="description ">
               We have received your submission. Thank you!

@@ -1,4 +1,16 @@
+import { useState } from "react";
+import { ImageUpload } from "../icons/ImageUpload";
+import { PineconeLogo } from "../icons/pineconeLogo";
 export function Step3({ decreaseStep, increaseStep }) {
+  const [preview, setPreview] = useState(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
   return (
     <div>
       <div className="background">
@@ -8,7 +20,7 @@ export function Step3({ decreaseStep, increaseStep }) {
           <div className="flex flex-col gap-7">
             {/* header */}
             <div className="flex flex-col w-104 items-start gap-2">
-              <div className="bg-[url(./assets/pinecone.png)] w-15 h-15"></div>
+              <PineconeLogo />
               <div className="joinUs">Join Us! 😎</div>
               <div className="description">
                 Please provide all current information accurately.
@@ -28,7 +40,28 @@ export function Step3({ decreaseStep, increaseStep }) {
                 <p className="inputTitle">Profile image</p>
                 <p className="star">*</p>
               </div>
-              <input type="file" className="imageInput " />
+              <input
+                type="file"
+                className="hidden"
+                id="fileInput"
+                onChange={handleFileChange}
+              />
+              <label htmlFor="fileInput" className="imageInput">
+                {preview ? (
+                  <img
+                    src={preview}
+                    alt="preview"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <>
+                    <div className="flex flex-col justify-center items-center">
+                      <ImageUpload />
+                      <span>Add Image</span>
+                    </div>
+                  </>
+                )}
+              </label>
             </div>
           </div>
           {/* buttons */}

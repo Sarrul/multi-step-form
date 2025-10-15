@@ -1,4 +1,20 @@
-export function Step1({ increaseStep }) {
+import { PineconeLogo } from "../icons/pineconeLogo";
+
+export function Step1({ increaseStep, error, setError, name, setName }) {
+  const nameRegex = /^[a-zA-Z]+$/;
+
+  const handleError = (field, value) => {
+    setName({ ...name, [field]: value });
+    if (!nameRegex.test(value)) {
+      setError({ ...error, [field]: "only letters allowed." });
+    } else if (value.length < 2) {
+      setError({ ...error, [field]: "name must be at least 2 characters." });
+    } else if (value.length > 30) {
+      setError({ ...error, [field]: "name must be under 30 characters." });
+    } else {
+      setError({ ...error, [field]: "" });
+    }
+  };
   return (
     <div>
       <div className="background">
@@ -8,7 +24,7 @@ export function Step1({ increaseStep }) {
           <div className="flex flex-col gap-7">
             {/* header */}
             <div className="flex flex-col w-104 items-start gap-2">
-              <div className="bg-[url(./assets/pinecone.png)] w-15 h-15"></div>
+              <PineconeLogo />
               <div className="joinUs">Join Us! 😎</div>
               <div className="description ">
                 Please provide all current information accurately.
@@ -24,9 +40,16 @@ export function Step1({ increaseStep }) {
                 </div>
                 <input
                   type="text"
-                  className="input"
                   placeholder="Placeholder"
+                  value={name.firstName}
+                  onChange={(e) => handleError("firstName", e.target.value)}
+                  className={`input ${
+                    error.firstName ? "border-red-500" : "borderGray"
+                  }`}
                 />
+                {error.firstName && (
+                  <div className="error-message">{error.firstName}</div>
+                )}
               </div>
               {/* last name big div */}
               <div className="inputBigDiv">
@@ -36,9 +59,16 @@ export function Step1({ increaseStep }) {
                 </div>
                 <input
                   type="text"
-                  className="input"
                   placeholder="Placeholder"
+                  value={name.lastName}
+                  onChange={(e) => handleError("lastName", e.target.value)}
+                  className={`input ${
+                    error.lastName ? "border-red-500" : "borderGray"
+                  }`}
                 />
+                {error.lastName && (
+                  <div className="error-message">{error.lastName}</div>
+                )}
               </div>
               {/* user name big div */}
               <div className="inputBigDiv">
@@ -48,9 +78,16 @@ export function Step1({ increaseStep }) {
                 </div>
                 <input
                   type="text"
-                  className="input"
                   placeholder="Placeholder"
+                  value={name.userName}
+                  onChange={(e) => handleError("userName", e.target.value)}
+                  className={`input ${
+                    error.userName ? "border-red-500" : "borderGray"
+                  }`}
                 />
+                {error.userName && (
+                  <div className="error-message">{error.userName}</div>
+                )}
               </div>
             </div>
           </div>
