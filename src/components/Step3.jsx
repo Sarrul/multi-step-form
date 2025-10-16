@@ -47,20 +47,22 @@ export function Step3({
               </div>
             </div>
             {/* date of birth */}
-            <div className="inputBigDiv">
+            <div className="inputBigDiv flex justify-between">
               <div className="flex flex-row">
                 <p className="inputTitle">Date of birth</p>
                 <p className="star">*</p>
               </div>
-              <input
-                type="date"
-                className={`input ${dobError ? "borderRed" : "borderGray"}`}
-                value={dob}
-                onChange={(e) => {
-                  setDob(e.target.value);
-                  if (e.target.value) setDobError("");
-                }}
-              />
+              <div style={{ position: "relative" }}>
+                <input
+                  type="date"
+                  className={`input ${dobError ? "borderRed" : "borderGray"}`}
+                  value={dob}
+                  onChange={(e) => {
+                    setDob(e.target.value);
+                    if (e.target.value) setDobError("");
+                  }}
+                />
+              </div>
               {dobError && <div className="error-message">{dobError}</div>}
             </div>
             {/* profile image */}
@@ -112,7 +114,7 @@ export function Step3({
           <div className="flex flex-row  mt-auto gap-2">
             <button onClick={decreaseStep} className="backBtn">
               <ChevronLeft />
-              back
+              Back
             </button>
 
             <button onClick={increaseStep} className="continueBtn w-70">

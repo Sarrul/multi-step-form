@@ -26,8 +26,14 @@
 .continueBtn {
   @apply flex justify-center items-center gap-1 py-[10px] px-3 rounded-md bg-[#121316] text-white mt-[30px];
 }
+.continueBtn:hover {
+  opacity: 0.8;
+}
 .backBtn {
   @apply flex justify-center items-center w-32 h-11 px-2.5 py-3 gap-1 rounded-md border border-[#CBD5E1] bg-white mt-auto;
+}
+.backBtn:hover {
+  @apply bg-[#f3f4f6];
 }
 .imageInput {
   @apply flex flex-col justify-center items-center w-104 h-45 min-h-20 p-4 gap-2 rounded-md bg-[rgba(127_127_128_/0.05)] border-none overflow-hidden;
@@ -40,4 +46,10 @@
 }
 .borderRed {
   @apply border border-[#E14942];
+}
+
+input::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  right: 12px;
+  position: absolute;
 }

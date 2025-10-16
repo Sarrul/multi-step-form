@@ -171,7 +171,7 @@ export function Step2({
           <div className="flex flex-row  mt-auto gap-2">
             <button onClick={decreaseStep} className="backBtn ">
               <ChevronLeft />
-              back
+              Back
             </button>
 
             <button onClick={increaseStep} className="continueBtn w-70">
