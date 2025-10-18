@@ -1,67 +1,70 @@
-import { useEffect, version } from "react";
+import { useEffect, useState, version } from "react";
 import { PineconeLogo } from "../icons/PineconeLogo";
 import { ChevronRight } from "../icons/ChevronRight";
 import { ChevronLeft } from "../icons/ChevronLeft";
-export function Step2({
-  increaseStep,
-  decreaseStep,
-  email,
-  setEmail,
-  emailError,
-  setEmailError,
-  phone,
-  setPhone,
-  phoneError,
-  setPhoneError,
-  password,
-  setPassword,
-  passError,
-  setPassError,
-  conPass,
-  setConPass,
-  conPassError,
-  setConPassError,
-}) {
+import { Input } from "../hooks/Input";
+export function Step2({ increaseStep, decreaseStep }) {
+  const [step2Data, setStep2Data] = useState({
+    email: "",
+    phone: "",
+    password: "",
+    conPass: "",
+  });
+  const [error, setError] = useState({
+    email: "",
+    phone: "",
+    password: "",
+    conPass: "",
+  });
+
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const phoneRegex = /^[0-9]+$/;
   const passRegex = /^(?=.*[A-Za-z])(?=.*\d).*$/;
 
-  const handleEmail = (value) => {
-    if (!emailRegex.test(value)) {
-      setEmailError("Invalid Gmail address.");
-    } else {
-      setEmailError("");
-    }
-  };
+  const handleChange = (field, value) => {
+    setStep2Data((prev) => ({ ...prev, [field]: value }));
 
-  const handlePhone = (value) => {
-    if (!phoneRegex.test(value)) {
-      setPhoneError("phone number should only contain numbers.");
-    } else if (value.length !== 8) {
-      setPhoneError("phone number should be 8 digits. ");
-    } else {
-      setPhoneError("");
+    let message = "";
+    switch (field) {
+      case "email":
+        if (!emailRegex.test(value)) message = "Invalid email.";
+        break;
+      case "phone":
+        if (!phoneRegex.test(value)) message = "Phone must be 8 digits.";
+        break;
+      case "password":
+        if (!passRegex.test(value))
+          message = "Password needs letters & numbers";
+        else if (value.length < 6) message = "Password must be 6+ chars";
+        break;
+      case "conPass":
+        if (value !== step2Data.password) message = "Passwords do not match";
+        break;
+      default:
+        break;
     }
+    setError((prev) => ({ ...prev, [field]: message }));
   };
+  const handleContinue = () => {
+    const isEmpty = Object.values(step2Data).some((val) => val.trim() === "");
+    const isError = Object.values(error).some((val) => val !== "");
 
-  const handlePass = (value) => {
-    if (!passRegex.test(value)) {
-      setPassError("Password must include letters and numbers.");
-    } else if (value.length < 6) {
-      setPassError("Password must be at least have 6 characters.");
-    } else if (value.length > 10) {
-      setPassError("Password must be under 10 characters.");
-    } else {
-      setPassError("");
+    if (isEmpty || isError) {
+      setError((prev) => ({
+        email: step2Data.email.trim() === "" ? "Email is required" : prev.email,
+        phone: step2Data.phone.trim() === "" ? "Phone is required" : prev.phone,
+        password:
+          step2Data.password.trim() === ""
+            ? "Password is required"
+            : prev.password,
+        conPass:
+          step2Data.conPass.trim() === ""
+            ? "Confirm password is required"
+            : prev.conPass,
+      }));
+      return;
     }
-  };
-
-  const handleConPass = (value) => {
-    if (value !== password) {
-      setConPassError("Passwords do not match. Please try again.");
-    } else {
-      setConPassError("");
-    }
+    increaseStep();
   };
 
   return (
@@ -81,100 +84,50 @@ export function Step2({
             </div>
             {/* all four input's div */}
             <div className="flex flex-col gap-3 items-start">
-              {/* email big div */}
-              <div className="inputBigDiv">
-                <div className="flex flex-row">
-                  <p className="inputTitle">Email</p>
-                  <p className="star">*</p>
-                </div>
-                <input
-                  type="text"
-                  className={`input ${emailError ? "borderRed" : "borderGray"}`}
-                  placeholder="Placeholder"
-                  value={email}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setEmail(value); // update email state
-                    handleEmail(value); // validate it
-                  }}
-                />
-                {emailError && (
-                  <div className="error-message">{emailError}</div>
-                )}
-              </div>
-              {/* phone number big div */}
-              <div className="inputBigDiv">
-                <div className="flex flex-row">
-                  <p className="inputTitle">Phone number</p>
-                  <p className="star">*</p>
-                </div>
-                <input
-                  type="text"
-                  className={`input ${phoneError ? "borderRed" : "borderGray"}`}
-                  placeholder="Placeholder"
-                  value={phone}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setPhone(value);
-                    handlePhone(value);
-                  }}
-                />
-                {phoneError && (
-                  <div className="error-message">{phoneError}</div>
-                )}
-              </div>
-              {/* password big div */}
-              <div className="inputBigDiv">
-                <div className="flex flex-row">
-                  <p className="inputTitle">Password</p>
-                  <p className="star">*</p>
-                </div>
-                <input
-                  type="password"
-                  className={`input ${passError ? "borderRed" : "borderGray"}`}
-                  placeholder="Placeholder"
-                  value={password}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setPassword(value);
-                    handlePass(value);
-                  }}
-                />
-                {passError && <div className="error-message">{passError}</div>}
-              </div>
-              {/* confirm password big div */}
-              <div className="inputBigDiv">
-                <div className="flex flex-row">
-                  <p className="inputTitle">Confirm password</p>
-                  <p className="star">*</p>
-                </div>
-                <input
-                  type="password"
-                  className={`input ${
-                    conPassError ? "borderRed" : "borderGray"
-                  }`}
-                  placeholder="Placeholder"
-                  value={conPass}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setConPass(value);
-                    handleConPass(value);
-                  }}
-                />
-                {conPassError && (
-                  <div className="error-message">{conPassError}</div>
-                )}
-              </div>
+              <Input
+                label="Email"
+                name="email"
+                value={step2Data.email}
+                onChange={handleChange}
+                error={error.email}
+                required
+              />
+              <Input
+                label="Phone number"
+                name="phone"
+                value={step2Data.phone}
+                onChange={handleChange}
+                error={error.phone}
+                required
+              />
+              <Input
+                label="Password"
+                name="password"
+                type="password"
+                value={step2Data.password}
+                onChange={handleChange}
+                error={error.password}
+                required
+              />
+              <Input
+                label="Confirm password"
+                name="conPass"
+                type="password"
+                value={step2Data.conPass}
+                onChange={handleChange}
+                error={error.conPass}
+                required
+              />
             </div>
           </div>
-
+          {/* buttons */}
           <div className="flex flex-row  mt-auto gap-2">
             <button onClick={decreaseStep} className="backBtn ">
               <ChevronLeft />
               Back
             </button>
 
-            <button onClick={increaseStep} className="continueBtn w-70">
+            <button onClick={handleContinue} className="continueBtn w-70">
               Continue 2/3
               <ChevronRight />
             </button>

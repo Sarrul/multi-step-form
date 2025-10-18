@@ -5,99 +5,10 @@ import { Step3 } from "./components/Step3";
 import { Step4 } from "./components/Step4";
 
 export function App() {
-  // step 1
-  const [name, setName] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-  });
-  const [error, setError] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-  });
-  const isError = Object.values(error).reduce(
-    (sum, cur) => (cur.length !== 0 ? true : sum),
-    false
-  );
-  // step 2
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
-
-  const [phone, setPhone] = useState("");
-  const [phoneError, setPhoneError] = useState("");
-
-  const [password, setPassword] = useState("");
-  const [passError, setPassError] = useState("");
-
-  const [conPass, setConPass] = useState("");
-  const [conPassError, setConPassError] = useState("");
-
-  // step 3
-  const [preview, setPreview] = useState(null);
-  const [dob, setDob] = useState("");
-  const [dobError, setDobError] = useState("");
-  const [imageError, setImageError] = useState("");
-
   // app.jsx
   const [step, setStep] = useState(1);
-  const isEmpty = Object.values(name).some((val) => val.trim() === "");
 
   function increaseStep() {
-    if (step === 1) {
-      if (isError || isEmpty) {
-        setError({
-          firstName:
-            name.firstName.trim() === ""
-              ? "First name is required"
-              : error.firstName,
-          lastName:
-            name.lastName.trim() === ""
-              ? "Last name is required"
-              : error.lastName,
-          userName:
-            name.userName.trim() === ""
-              ? "User name is required"
-              : error.userName,
-        });
-        return;
-      }
-    }
-
-    if (step === 2) {
-      const step2Data = { email, phone, password, conPass };
-      const isStep2Empty = Object.values(step2Data).some(
-        (val) => val.trim() === ""
-      );
-      if (isStep2Empty) {
-        setEmailError(email.trim() === "" ? "Email is required" : emailError);
-        setPhoneError(
-          phone.trim() === "" ? "Phone number is required" : phoneError
-        );
-        setPassError(
-          password.trim() === "" ? "Password is required" : passError
-        );
-        setConPassError(
-          conPass.trim() === "" ? "Confirm password is required" : conPassError
-        );
-        return;
-      }
-    }
-    if (step === 3) {
-      let hasError = false;
-
-      if (!dob) {
-        setDobError("Date of birth is required");
-        hasError = true;
-      }
-
-      if (!preview) {
-        setImageError("Profile image is required");
-        hasError = true;
-      }
-
-      if (hasError) return;
-    }
     setStep(step + 1);
   }
   function decreaseStep() {
@@ -105,50 +16,12 @@ export function App() {
   }
   return (
     <div>
-      {step === 1 && (
-        <Step1
-          increaseStep={increaseStep}
-          error={error}
-          setError={setError}
-          name={name}
-          setName={setName}
-        />
-      )}
+      {step === 1 && <Step1 increaseStep={increaseStep} />}
       {step === 2 && (
-        <Step2
-          increaseStep={increaseStep}
-          decreaseStep={decreaseStep}
-          email={email}
-          setEmail={setEmail}
-          emailError={emailError}
-          setEmailError={setEmailError}
-          phone={phone}
-          setPhone={setPhone}
-          phoneError={phoneError}
-          setPhoneError={setPhoneError}
-          password={password}
-          setPassword={setPassword}
-          passError={passError}
-          setPassError={setPassError}
-          conPass={conPass}
-          setConPass={setConPass}
-          conPassError={conPassError}
-          setConPassError={setConPassError}
-        />
+        <Step2 increaseStep={increaseStep} decreaseStep={decreaseStep} />
       )}
       {step === 3 && (
-        <Step3
-          decreaseStep={decreaseStep}
-          increaseStep={increaseStep}
-          dob={dob}
-          setDob={setDob}
-          dobError={dobError}
-          setDobError={setDobError}
-          imageError={imageError}
-          setImageError={setImageError}
-          preview={preview}
-          setPreview={setPreview}
-        />
+        <Step3 decreaseStep={decreaseStep} increaseStep={increaseStep} />
       )}
       {step === 4 && <Step4 />}
     </div>
